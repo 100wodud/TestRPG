@@ -24,14 +24,17 @@
    <a href="https://dotween.demigiant.com/index.php">https://dotween.demigiant.com/index.php</a>
   
 # Trouble Shooting
-1. 문제점 :
+1. 문제점
+   
 GameManager에 Object Pool 스폰 기능을 넣는 바람에
 ```
 DontDestroyOnLoad(this.gameObject);
 ```
 를 사용하지 못하여 Scene이 초기화 될 시 Score가 저장 되지 않는 문제가 생겼다.
 
-2. 해결방법 :
+
+2. 해결방법
+   
 GameManager는 포기하고 게임이 시작할시 계속 초기화를 해주었다.
 대신 점수만을 위한 DataManger를 생성하고 파괴되지 않게 코드를 짜주었다.
 이 방법으로 Save / Load 기능도 구현이 가능 할 것 같고 JSON 파일을 만들어주는 중간 역할도 해줄 수 있다.
