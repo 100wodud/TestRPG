@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject Bullet;
-    public GameObject[] colliderObjs;
+    public static GameManager I;
+
+    public string Bullet;
+    public string[] colliderObjs;
     public Transform[] spawnPoints;
 
     public float maxSpawnDelay;
@@ -16,13 +19,32 @@ public class GameManager : MonoBehaviour
 
     public float Score;
 
+    public ObjectManager objectManager;
+
+    public TextMeshProUGUI scoreText;
+
+
+    void Awake()
+    {
+        colliderObjs = new string[] { "WallT", "WallB" };
+        Bullet = "Bullet";
+        if (I != null) //이미 존재하면
+        {
+            Destroy(gameObject); //두개 이상이니 삭제
+            return;
+        }
+        I = this; 
+
+    }
     void Update()
     {
         curSpawnDelay += Time.deltaTime;
         Score += Time.deltaTime * 10;
+        scoreText.text = Score.ToString("N1");
 
-        
-        if(curSpawnDelay > maxSpawnDelay)
+
+
+        if (curSpawnDelay > maxSpawnDelay)
         {
             SpawnCollider();
             maxSpawnDelay = Random.Range(0.5f, spawnDelay);
@@ -48,7 +70,8 @@ public class GameManager : MonoBehaviour
         int ranCollider = Random.Range(0, 2);
         int ranPoint = Random.Range(0, 5);
 
-        Instantiate(colliderObjs[ranCollider], spawnPoints[ranPoint].position, spawnPoints[ranPoint].rotation);
+        GameObject wall = objectManager.MakeObj(colliderObjs[ranCollider]);
+        wall.transform.position = spawnPoints[ranPoint].position;
     }
 
     void SpawnBullet()
@@ -56,8 +79,9 @@ public class GameManager : MonoBehaviour
         float randX = 20f;
         float randY = Random.Range(-4 , 4);
         transform.position = new Vector3(randX, randY, 0);
+        GameObject wall = objectManager.MakeObj(Bullet);
+        wall.transform.position = transform.position;
 
-        Instantiate(Bullet, transform.position, transform.rotation);
 
     }
 }

@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class TileMapColider : MonoBehaviour
 {
+    public GameObject Gameover;
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Game Over");
             Destroy(collision.gameObject);
+            Time.timeScale = 0f;
+            Instantiate(Gameover);
         }
     }
 }
