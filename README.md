@@ -18,6 +18,7 @@
 1. 나오는 모든 총알과 벽은 Object Pool을 이용해 메모리 간소화
 2. 맵은 무한 생성이 아닌 스크롤링을 이용
 3. 원근감을 위해 패럴렉스 방식 사용
-4. 메인 글씨 반짝임을 위해 DOTween의 Fade기능 사용
+4. DataManager를 통한 최고점수 저장
+5. 메인 글씨 반짝임을 위해 DOTween의 Fade기능 사용
 
    <a href="https://dotween.demigiant.com/index.php">https://dotween.demigiant.com/index.php</a>
